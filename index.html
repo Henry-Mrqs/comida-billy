@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculo comida Billy</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #4db8ff;
+      }
+      .container {
+        text-align: center;
+        padding: 20px;
+        border-radius: 10px;
+        background-color: #f2f2f2;
+        box-shadow: 4px 10px 12px rgba(0, 0, 0, 0.2);
+      }
+      label {
+        font-weight: bold;
+        font-size: 1.1em;
+      }
+      input[type="text"] {
+        padding: 10px;
+        border-radius: 20px;
+        border: 1px solid #4db8ff59;
+        margin: 5px 0 15px;
+        width: 150px;
+      }
+      button {
+        padding: 10px 20px;
+        border-radius: 20px;
+        border: none;
+        background-color: #4da6ff;
+        color: #fff;
+        font-weight: bold;
+        margin: 5px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #65b2ff;
+      }
+      #resultado {
+        margin-top: 20px;
+        text-align: left;
+      }
+      #resultado p {
+        margin: 5px 0;
+        font-weight: normal;
+        font-size: 1.1em;
+      }
+      #resultado strong {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Calculo comida Billy</h1>
+      <label for="pesoDoguinho">Qual o peso do doguinho (ex: 14500)?</label>
+      <br />
+      <input type="text" id="pesoDoguinho" />
+      <br />
+      <button onclick="calcularComida('diario')">Comida Diária</button>
+      <button onclick="calcularComida('refeicao')">
+        Valor por Refeição Diária
+      </button>
+      <button onclick="calcularComida('mensal')">Valor Mensal</button>
+      <div id="resultado"></div>
+    </div>
+    <script>
+      function calcularComida(tipo) {
+        var pesoDoguinho = parseFloat(
+          document.getElementById("pesoDoguinho").value
+        );
+
+        // Cálculo dos valores diários em gramas
+        var valorDiario = pesoDoguinho * 0.05; // 5% do peso do doguinho
+        var ossoCarnudoDiario = valorDiario * 0.55;
+        var carneDiario = valorDiario * 0.2;
+        var viscerasMuscularesDiario = valorDiario * 0.2;
+        var viscerasSecretorasDiario = valorDiario * 0.05;
+
+        // Cálculo dos valores mensais em gramas
+        var ossoCarnudoMensal = ossoCarnudoDiario * 30;
+        var carneMensal = carneDiario * 30;
+        var viscerasMuscularesMensal = viscerasMuscularesDiario * 30;
+        var viscerasSecretorasMensal = viscerasSecretorasDiario * 30;
+
+        var resultadoHTML = "";
+
+        switch (tipo) {
+          case "diario":
+            resultadoHTML = `
+          <p><strong>Osso Carnudo Diário:</strong> ${ossoCarnudoDiario.toFixed(
+            2
+          )}g</p>
+          <p><strong>Carne Diário:</strong> ${carneDiario.toFixed(2)}g</p>
+          <p><strong>Vísceras Musculares Diário:</strong> ${viscerasMuscularesDiario.toFixed(
+            2
+          )}g</p>
+          <p><strong>Vísceras Secretoras Diário:</strong> ${viscerasSecretorasDiario.toFixed(
+            2
+          )}g</p>
+        `;
+            break;
+          case "refeicao":
+            var valorRefeicao = valorDiario / 2;
+            var ossoCarnudoRefeicao = ossoCarnudoDiario / 2;
+            var carneRefeicao = carneDiario / 2;
+            var viscerasMuscularesRefeicao = viscerasMuscularesDiario / 2;
+            var viscerasSecretorasRefeicao = viscerasSecretorasDiario / 2;
+            resultadoHTML = `
+          <p><strong>Osso Carnudo por Refeição:</strong> ${ossoCarnudoRefeicao.toFixed(
+            2
+          )}g</p>
+          <p><strong>Carne por Refeição:</strong> ${carneRefeicao.toFixed(
+            2
+          )}g</p>
+          <p><strong>Vísceras Musculares por Refeição:</strong> ${viscerasMuscularesRefeicao.toFixed(
+            2
+          )}g</p>
+          <p><strong>Vísceras Secretoras por Refeição:</strong> ${viscerasSecretorasRefeicao.toFixed(
+            2
+          )}g</p>
+        `;
+            break;
+          case "mensal":
+            resultadoHTML = `
+          <p><strong>Osso Carnudo Mensal:</strong> ${ossoCarnudoMensal.toFixed(
+            2
+          )}g</p>
+          <p><strong>Carne Mensal:</strong> ${carneMensal.toFixed(2)}g</p>
+          <p><strong>Vísceras Musculares Mensal:</strong> ${viscerasMuscularesMensal.toFixed(
+            2
+          )}g</p>
+          <p><strong>Vísceras Secretoras Mensal:</strong> ${viscerasSecretorasMensal.toFixed(
+            2
+          )}g</p>
+        `;
+            break;
+        }
+
+        document.getElementById("resultado").innerHTML = resultadoHTML;
+      }
+    </script>
+  </body>
+</html>
